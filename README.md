@@ -73,3 +73,40 @@ export default function App() {
   );
 }
 ```
+## Customize Drawer-navigator
+```
+import DrawerContent from './screens/DrawerContent';
+
+const App = () => {
+  return (
+    <NavigationContainer>
+       <Drawer.Navigator drawerContent={props => <DrawerContent {...props} /> }>
+        <Drawer.Screen name="Home" component={MainTabScreen} />
+      </Drawer.Navigator>
+    </NavigationContainer>
+  );
+}
+
+// DrawerContent.js
+
+ import { DrawerItem,DrawerContentScrollView } from '@react-navigation/drawer';
+ 
+ const DrawerContent = (props) => {
+ return (
+ <DrawerContentScrollView {...props}>
+ <Drawer.Section >
+          <DrawerItem 
+               icon={({color, size}) => (
+                   <Icon 
+                    name="home-outline" 
+                    color={color}
+                    size={size}
+                    />
+                 )}
+               label="Home"
+               onPress={() => {props.navigation.navigate("Home")}}
+            />
+</Drawer.Section>
+</DrawerContentScrollView>
+)}
+```
