@@ -30,6 +30,9 @@ const {signIn} = React.useContext(AuthContext)
 
 
 const loginHandler = (userName, password) => {
+  const foundUser = Users.filter( item => {
+    return userName == item.username && password == item.password;
+} )
 
   if ( data.username.length == 0 || data.password.length == 0 ) {
     Alert.alert('Wrong Input!', 'Username or password field cannot be empty.', [
@@ -44,10 +47,6 @@ if ( foundUser.length == 0 ) {
     ]);
     return;
 }
-
-  const foundUser = Users.filter( item => {
-    return userName == item.username && password == item.password;
-} )
   signIn(foundUser)
 }
 
