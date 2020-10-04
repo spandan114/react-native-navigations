@@ -5,7 +5,7 @@ import {
   TouchableOpacity, 
   TextInput,
   Platform,
-  StyleSheet
+  StyleSheet,Alert
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
@@ -30,6 +30,21 @@ const {signIn} = React.useContext(AuthContext)
 
 
 const loginHandler = (userName, password) => {
+
+  if ( data.username.length == 0 || data.password.length == 0 ) {
+    Alert.alert('Wrong Input!', 'Username or password field cannot be empty.', [
+        {text: 'Okay'}
+    ]);
+    return;
+}
+
+if ( foundUser.length == 0 ) {
+    Alert.alert('Invalid User!', 'Username or password is incorrect.', [
+        {text: 'Okay'}
+    ]);
+    return;
+}
+
   const foundUser = Users.filter( item => {
     return userName == item.username && password == item.password;
 } )
@@ -118,6 +133,11 @@ const handlePasswordChange = (val) => {
            </Animatable.View>
       : null}
       </View>
+      { data.isValidUser ? null : 
+            <Animatable.View animation="fadeInLeft" duration={500}>
+            <Text style={styles.errorMsg}>Username must be 4 characters long.</Text>
+            </Animatable.View>
+            }
 
      {/* password */}
         <Text style={[styles.text_footer, {
@@ -159,6 +179,12 @@ const handlePasswordChange = (val) => {
                     }
                 </TouchableOpacity>
          </View>
+
+         { data.isValidPassword ? null : 
+            <Animatable.View animation="fadeInLeft" duration={500}>
+            <Text style={styles.errorMsg}>Password must be 8 characters long.</Text>
+            </Animatable.View>
+            }
 
             <TouchableOpacity>
                 <Text style={{color: '#009387', marginTop:15}}>Forgot password?</Text>
@@ -265,5 +291,8 @@ const styles = StyleSheet.create({
   },
   color_textPrivate: {
       color: 'grey'
+  },
+  errorMsg:{
+    color:'red'
   }
 });
