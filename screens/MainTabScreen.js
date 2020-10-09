@@ -2,14 +2,17 @@ import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 import HomeScreen from './Home'
 import Aboutscreen from './AbourScreen'
 import ProfileScreen from './Profile'
 import ExploreScreen from './Explore'
+import EditpofileScreen from "./EditpofileScreen";
 
 const HomeStack = createStackNavigator();
 const AboutStack = createStackNavigator();
+const ProfileStack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
 
 const HomeStackScreen = ({navigation}) => (
@@ -52,6 +55,43 @@ const AboutStackScreen = ({navigation}) => (
     </AboutStack.Navigator>
   )
 
+  const ProfileStackScreen = ({navigation}) => (
+    <ProfileStack.Navigator screenOptions={{
+      headerStyle:{
+        backgroundColor:"#fff",
+        // shadowColor:"#fff", // IOSs
+        // elevation:0 // Android
+      },
+      headerTintColor:"#000",
+      headerTitleStyle:{
+        fontWeight:"bold"
+      }
+    }} >
+      <ProfileStack.Screen name="profile" options={{
+        title:'',
+        headerLeft: () => (
+          <Icon.Button name="ios-menu" size={25}
+          backgroundColor="#fff"
+          color="#000"
+          onPress={()=>navigation.openDrawer()}></Icon.Button>
+        ),
+        headerRight: () => (
+          <FontAwesome.Button name="user-plus" size={22}
+          backgroundColor="#fff"
+          color="#000"
+          onPress={()=>navigation.navigate("EditProfile")}></FontAwesome.Button>
+        )
+        }} component={ProfileScreen} />
+
+        <ProfileStack.Screen name="EditProfile"
+        options={{
+          title:"Edit Profile"
+        }}
+        component={EditpofileScreen}
+        />
+
+    </ProfileStack.Navigator>
+  )
 
 
 const MainTabScreen = () => {
@@ -85,7 +125,7 @@ const MainTabScreen = () => {
           />
           <Tab.Screen
             name="Profile"
-            component={ProfileScreen}
+            component={ProfileStackScreen}
             options={{
               tabBarLabel: 'Profile',
               tabBarColor: '#694fad',
