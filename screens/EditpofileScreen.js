@@ -26,8 +26,6 @@ const EditpofileScreen = () => {
 
     const options = {
       title: 'Select Avatar',
-      takePhotoButtonTitle: 'Take photo with your camera',
-      chooseFromLibraryButtonTitle: 'Choose photo from library'
     };
 
     // Launch Camera:
@@ -109,9 +107,8 @@ const EditpofileScreen = () => {
     const fall = new Animated.Value(1);
 
     return (
-        
+      <ScrollView>
       <View style={styles.container}> 
-
           <BottomSheet
           ref={bs}
           snapPoints={[330, 0]}
@@ -121,7 +118,7 @@ const EditpofileScreen = () => {
           callbackNode={fall}
           enabledGestureInteraction={true}
         />
-    <ScrollView>
+    
       <Animated.View style={{margin: 20,
             opacity: Animated.add(0.1, Animated.multiply(fall, 1.0)),
         }}>
@@ -264,9 +261,9 @@ const EditpofileScreen = () => {
           <Text style={styles.panelButtonTitle}>Submit</Text>
         </TouchableOpacity>
         </Animated.View>
-        </ScrollView>
+        {/* </ScrollView> */}
         </View>
-        // </ScrollView>
+        </ScrollView>
     )
 }
 
@@ -344,10 +341,10 @@ const styles = StyleSheet.create({
     },
     action: {
       flexDirection: 'row',
-      marginTop: 10,
-      marginBottom: 10,
+      marginTop:2,
+      marginBottom: 2,
       borderBottomWidth: 1,
-      borderBottomColor: '#f2f2f2',
+      borderBottomColor: '#dfe6e9',
       paddingBottom: 5,
       paddingLeft:15,
       paddingRight:15

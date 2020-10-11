@@ -15,8 +15,27 @@ import {
   } from 'react-native-paper';
   import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
   import Feather from 'react-native-vector-icons/Feather';
+  import Share from "react-native-share";
 
 const ProfileScreen = () => {
+
+
+  const sharewithfriends = () => {
+
+    const options = {
+      message:"Download our app",
+      //link
+      url:'https://awesome.contents.com/'
+      //image,pdf or other files
+      //url: "file://<file_path>" support only base 64type
+    }
+
+    Share.open(options)
+    .then((res) => { console.log(res) })
+    .catch((err) => { err && console.log(err); });
+  }
+
+
     return (
       <ScrollView>
       <SafeAreaView style={styles.container}>
@@ -78,7 +97,7 @@ const ProfileScreen = () => {
                 <Text style={styles.menuItemText}>Payment</Text>
               </View>
             </TouchableRipple>
-            <TouchableRipple onPress={() => {}}>
+            <TouchableRipple onPress={() => {sharewithfriends()}}>
               <View style={styles.menuItem}>
                 <Icon name="share-outline" color="#FF6347" size={25}/>
                 <Text style={styles.menuItemText}>Tell Your Friends</Text>
