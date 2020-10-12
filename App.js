@@ -120,7 +120,8 @@ const App = () => {
 
   return (
     <AuthContext.Provider value={authContext}>
-      <NavigationContainer>
+      {/* theme={{colors: {background: '#ffffff'}}} */}
+      <NavigationContainer >
         {
           loginState.userToken !== null ?
           <Drawer.Navigator drawerContent={props => <DrawerContent {...props} /> }>

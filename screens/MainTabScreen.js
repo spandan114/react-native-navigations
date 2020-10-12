@@ -1,4 +1,6 @@
 import React from 'react'
+import {Image, TouchableOpacity, View} from 'react-native'
+import {Avatar} from 'react-native-paper'
 import { createStackNavigator } from '@react-navigation/stack';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -9,31 +11,83 @@ import Aboutscreen from './AbourScreen'
 import ProfileScreen from './Profile'
 import ExploreScreen from './Explore'
 import EditpofileScreen from "./EditpofileScreen";
+import CardList from "./CardList";
+import CardItemDetails from "./CardItemDetails";
 
 const HomeStack = createStackNavigator();
 const AboutStack = createStackNavigator();
 const ProfileStack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
 
-const HomeStackScreen = ({navigation}) => (
+const HomeStackScreen = ({navigation}) => {
+ return(
+  
     <HomeStack.Navigator screenOptions={{
+
       headerStyle:{
-        backgroundColor:"#009387"
+        backgroundColor:"#fff",
+        shadowColor:"#fff",//android only
+        elevation: 0,       
       },
-      headerTintColor:"#fff",
+      headerTintColor:"#333",
       headerTitleStyle:{
         fontWeight:"bold"
       }
     }} >
       <HomeStack.Screen name="Home" options={{
-        title:'Overview',
+        title:'Home',
         headerLeft: () => (
-          <Icon.Button name="ios-menu" size={25}
-          backgroundColor="#009387" onPress={()=>navigation.openDrawer()}></Icon.Button>
+          <View style={{marginLeft:10}}>
+             <Icon.Button name="ios-menu" size={25}
+                backgroundColor="#fff"
+                color="#333" 
+                onPress={()=>navigation.openDrawer()}
+              />
+          </View>
+        ),
+        headerRight: () => (
+          <View style={{flexDirection:"row",marginRight:10}}>
+            <Icon.Button name="ios-search" 
+              size={25}
+              backgroundColor="#fff"
+              color="#333" 
+              onPress={()=> {}}
+            />
+            <TouchableOpacity 
+            style={{paddingHorizontal:10,marginTop:5}} 
+            onPress={()=>{navigation.navigate('Profile')}}
+            >
+              <Avatar.Image 
+                source={{
+                  uri: 'https://api.adorable.io/avatars/80/abott@adorable.png',
+                }}
+                size={30}
+              />
+            </TouchableOpacity>
+         </View>
         )
         }} component={HomeScreen} />
+
+      <HomeStack.Screen name="CardListScreen"
+       options={({route})=> ({
+         title: route.params.title,
+         headerBackTitleVisible: false
+       })} 
+       component={CardList} />
+
+       <HomeStack.Screen 
+        name="CardItemDetails"
+        component={CardItemDetails}
+        options={({route}) => ({
+          // title: route.params.title,
+          headerBackTitleVisible: false,
+          headerTitle: false,
+          headerTransparent: true,
+          headerTintColor: '#ffffff'
+        })}
+      />
     </HomeStack.Navigator>
-  )
+  )}
 
 
 const AboutStackScreen = ({navigation}) => (
@@ -55,7 +109,7 @@ const AboutStackScreen = ({navigation}) => (
     </AboutStack.Navigator>
   )
 
-  const ProfileStackScreen = ({navigation}) => (
+const ProfileStackScreen = ({navigation}) => (
     <ProfileStack.Navigator screenOptions={{
       headerStyle:{
         backgroundColor:"#fff",
